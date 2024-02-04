@@ -305,31 +305,31 @@ export const data = [
         floor: 2,
         'Seating Location': '2ND FLOOR CE STAFF CABIN-A',
     },
-]
+];
 
 export const facultyNames = data
     .map((d) => d['Full Name'])
-    .sort((a, b) => a.localeCompare(b))
+    .sort((a, b) => a.localeCompare(b));
 
-export const facultyCodes = data.map((d) => d['Short name'])
+export const facultyCodes = data.map((d) => d['Short name']);
 
 const locations = new Set(
     data.map((d) =>
         JSON.stringify({ location: d['Seating Location'], floor: d['floor'] })
     )
-)
+);
 export const uniqueLocations = Array.from(locations).map((str) =>
     JSON.parse(str)
-)
+);
 
-const timeTable = [
-    {
-        'Short name': 'MPB',
-        slot1: 301,
-        slot2: 302,
-        slot3: 303,
-        slot4: 301,
-        slot5: 302,
-        slot6: 303,
-    },
-]
+// const timeTable = [
+//     {
+//         'Short name': 'MPB',
+//         slot1: 301,
+//         slot2: 302,
+//         slot3: 303,
+//         slot4: 301,
+//         slot5: 302,
+//         slot6: 303,
+//     },
+// ]
