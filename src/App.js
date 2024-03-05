@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import store from './redux/store/store';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './Pages/Dashboard';
+import Dashboard from './Pages/dashboard/Dashboard';
 
 function App() {
     useEffect(() => {

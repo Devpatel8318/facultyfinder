@@ -1,7 +1,8 @@
-import formatTimeTableData from '../../utils/formatTimeTableData';
+import formatTimeTableData from '../../../utils/formatTimeTableData';
+import { data } from '../../../data/db';
+import formatFacultyData from '../../../utils/formatFacultyData';
 
 const initialState = {
-    user: {},
     loading: false,
     error: null,
     selectedFacultyName: '',
@@ -13,7 +14,7 @@ const dashboardReducer = (state = initialState, action) => {
             const response = action.payload;
             return {
                 ...state,
-                status: 'success',
+                timeTableData_status: 'success',
                 timeTable: formatTimeTableData(response),
                 loading: false,
             };
@@ -22,14 +23,37 @@ const dashboardReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                status: 'pending',
+                timeTableData_status: 'pending',
             };
         case 'FETCH_ALL_FACULTY_TIMETABLE_DATA_REJECTED':
             return {
                 ...state,
                 error: action.payload,
                 loading: false,
-                status: 'failed',
+                timeTableData_status: 'failed',
+            };
+        case 'FETCH_ALL_FACULTY_DATA_FULFILLED': {
+            const response = action.payload;
+            console.log({ response: formatFacultyData(response) });
+            return {
+                ...state,
+                facultuData_status: 'success',
+                facultyData: formatFacultyData(response),
+                loading: false,
+            };
+        }
+        case 'FETCH_ALL_FACULTY_DATA_PENDING':
+            return {
+                ...state,
+                loading: true,
+                facultuData_status: 'pending',
+            };
+        case 'FETCH_ALL_FACULTY_DATA_REJECTED':
+            return {
+                ...state,
+                error: action.payload,
+                loading: false,
+                facultuData_status: 'failed',
             };
         case 'SELECT_FACULTY':
             return {
@@ -37,10 +61,12 @@ const dashboardReducer = (state = initialState, action) => {
                 selectedFacultyName: action.payload,
             };
         case 'SHOW_LOCATION':
-            const facultyData = action.payload;
+            // const facultyData = data;
             let response = { ...state };
+
+            console.log({ state });
             if (state.selectedFacultyName) {
-                const foundUser = facultyData.find(
+                const foundUser = state.facultyData.find(
                     (d) => d['Full Name'] === state.selectedFacultyName
                 );
                 if (foundUser) {
@@ -51,9 +77,11 @@ const dashboardReducer = (state = initialState, action) => {
                     };
                 }
             }
-            console.log(response);
-            console.log(state);
             return response;
+        case 'GET_FACULTY_TIME_TABLE':
+            console.log(state.selectedFacultyName);
+            console.log(state.timeTable);
+            return state;
         default:
             return state;
     }
