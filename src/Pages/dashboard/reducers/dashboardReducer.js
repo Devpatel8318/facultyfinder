@@ -1,5 +1,4 @@
 import formatTimeTableData from '../../../utils/formatTimeTableData';
-import { data } from '../../../data/db';
 import formatFacultyData from '../../../utils/formatFacultyData';
 
 const initialState = {

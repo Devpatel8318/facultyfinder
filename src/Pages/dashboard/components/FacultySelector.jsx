@@ -1,17 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { facultyNames } from '../../../data/db';
-import { selectFaculty } from '../actions/dashboardActions';
+import {
+    fetchOneFacultyLocation,
+    getFacultyTimeTable,
+    selectFaculty,
+} from '../actions/dashboardActions';
 
 class FacultySelector extends Component {
     handleFacultyChange = (event) => {
-        console.log(event.target.value);
+        console.log(event);
         this.props.selectFacultyName(event.target.value);
     };
 
+    componentDidUpdate(prevProps) {
+        console.log('Updated');
+        const {
+            selectedFacultyName,
+            findOneFacultyLocation,
+            fetchFacultyTimeTable,
+        } = this.props;
+        if (selectedFacultyName !== prevProps.selectedFacultyName) {
+            if (selectedFacultyName) {
+                findOneFacultyLocation();
+                fetchFacultyTimeTable();
+            }
+        }
+    }
+
     render() {
         const { selectedFacultyName, facultyData: facultiesData } = this.props;
-        console.log({ facultiesData });
+
+        console.log({ selectedFacultyName });
 
         return (
             <div className="flex flex-col justify-center items-center gap-4">
@@ -44,6 +63,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     selectFacultyName: (shortName) => {
         dispatch(selectFaculty(shortName));
+    },
+    findOneFacultyLocation: (facultyData) => {
+        dispatch(fetchOneFacultyLocation(facultyData));
+    },
+    fetchFacultyTimeTable: () => {
+        dispatch(getFacultyTimeTable());
     },
 });
 

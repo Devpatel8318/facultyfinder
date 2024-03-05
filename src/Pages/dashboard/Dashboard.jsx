@@ -9,28 +9,12 @@ import FacultySelector from './components/FacultySelector';
 import {
     fetchAllFacultyData,
     fetchAllTimeTableData,
-    fetchOneFacultyLocation,
-    getFacultyTimeTable,
 } from './actions/dashboardActions';
 
 class Dashboard extends Component {
     componentDidMount() {
         this.props.fetchTimeTables();
         this.props.getAllFacultyData();
-    }
-
-    componentDidUpdate(prevProps) {
-        const {
-            selectedFacultyName,
-            findOneFacultyLocation,
-            fetchFacultyTimeTable,
-        } = this.props;
-        if (selectedFacultyName !== prevProps.selectedFacultyName) {
-            if (selectedFacultyName) {
-                findOneFacultyLocation();
-                fetchFacultyTimeTable();
-            }
-        }
     }
 
     render() {
@@ -79,12 +63,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchTimeTables: () => {
         dispatch(fetchAllTimeTableData());
-    },
-    findOneFacultyLocation: (facultyData) => {
-        dispatch(fetchOneFacultyLocation(facultyData));
-    },
-    fetchFacultyTimeTable: () => {
-        dispatch(getFacultyTimeTable());
     },
     getAllFacultyData: () => {
         dispatch(fetchAllFacultyData());
