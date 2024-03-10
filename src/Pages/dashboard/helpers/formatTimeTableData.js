@@ -1,6 +1,6 @@
 const formatTimeTableData = (rawData) => {
     const json = JSON.parse(
-        rawData.data.replace(
+        rawData?.data?.replace(
             /.*google.visualization.Query.setResponse\({(.*?)}\);?/s,
             '{$1}'
         )

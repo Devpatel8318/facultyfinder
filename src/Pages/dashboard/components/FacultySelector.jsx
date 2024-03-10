@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { facultyNames } from '../../../data/db';
 import { selectFaculty } from '../actions/dashboardActions';
 
 class FacultySelector extends Component {
     handleFacultyChange = (event) => {
-        console.log(event.target.value);
-        this.props.selectFacultyName(event.target.value);
+        this.props.selectFacultyShortName(event.target.value);
     };
 
     render() {
         const { selectedFacultyName, facultyData: facultiesData } = this.props;
-        console.log({ facultiesData });
-
         return (
             <div className="flex flex-col justify-center items-center gap-4">
                 <label htmlFor="facultySelect" className="text-4xl md:text-5xl">
@@ -26,7 +22,7 @@ class FacultySelector extends Component {
                 >
                     <option value="">Select</option>
                     {facultiesData?.map((facultyData, index) => (
-                        <option key={index} value={facultyData['Full Name']}>
+                        <option key={index} value={facultyData['Short name']}>
                             {facultyData['Full Name']}
                         </option>
                     ))}
@@ -42,7 +38,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    selectFacultyName: (shortName) => {
+    selectFacultyShortName: (shortName) => {
         dispatch(selectFaculty(shortName));
     },
 });

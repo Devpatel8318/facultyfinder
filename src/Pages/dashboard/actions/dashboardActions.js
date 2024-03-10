@@ -1,5 +1,9 @@
 import callAPI from '../../../utils/callAPI';
-import { SHEET_DATA_URL, FACULTY_DATA_URL } from '../../../utils/API_URL.js';
+import {
+    SHEET_DATA_URL,
+    FACULTY_DATA_URL,
+    ATTENDANCE_URL,
+} from '../../../utils/API_URL.js';
 
 export const fetchAllTimeTableData = () => ({
     type: 'FETCH_ALL_FACULTY_TIMETABLE_DATA',
@@ -8,6 +12,10 @@ export const fetchAllTimeTableData = () => ({
 export const fetchAllFacultyData = () => ({
     type: 'FETCH_ALL_FACULTY_DATA',
     payload: callAPI(FACULTY_DATA_URL, 'get'),
+});
+export const fetchAttendance = () => ({
+    type: 'FETCH_ATTENDANCE',
+    payload: callAPI(ATTENDANCE_URL, 'get'),
 });
 export const selectFaculty = (shortName) => ({
     type: 'SELECT_FACULTY',
